@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Getting Data From Kaggle | fastpages</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Getting Data From Kaggle" />
+<meta name="author" content="Nissan Dookeran" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A tutorial of fastpages for Jupyter notebooks." />
+<meta property="og:description" content="A tutorial of fastpages for Jupyter notebooks." />
+<link rel="canonical" href="https://redditech.github.io/reddi-hacking/kaggle/2021/06/21/Getting-Data-In-Kaggle.html" />
+<meta property="og:url" content="https://redditech.github.io/reddi-hacking/kaggle/2021/06/21/Getting-Data-In-Kaggle.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:image" content="https://redditech.github.io/reddi-hacking/images/chart-preview.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-06-21T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"A tutorial of fastpages for Jupyter notebooks.","url":"https://redditech.github.io/reddi-hacking/kaggle/2021/06/21/Getting-Data-In-Kaggle.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://redditech.github.io/reddi-hacking/kaggle/2021/06/21/Getting-Data-In-Kaggle.html"},"headline":"Getting Data From Kaggle","dateModified":"2021-06-21T00:00:00-05:00","datePublished":"2021-06-21T00:00:00-05:00","author":{"@type":"Person","name":"Nissan Dookeran"},"image":"https://redditech.github.io/reddi-hacking/images/chart-preview.png","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/reddi-hacking/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://redditech.github.io/reddi-hacking/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/reddi-hacking/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/reddi-hacking/">fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/reddi-hacking/about/">About Me</a><a class="page-link" href="/reddi-hacking/search/">Search</a><a class="page-link" href="/reddi-hacking/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Getting Data From Kaggle</h1><p class="page-description">A tutorial of fastpages for Jupyter notebooks.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-06-21T00:00:00-05:00" itemprop="datePublished">
+        Jun 21, 2021
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Nissan Dookeran</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/reddi-hacking/categories/#kaggle">kaggle</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/redditech/reddi-hacking/tree/master/_notebooks/2021-06-21-Getting-Data-In-Kaggle.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/reddi-hacking/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/redditech/reddi-hacking/master?filepath=_notebooks%2F2021-06-21-Getting-Data-In-Kaggle.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/reddi-hacking/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/redditech/reddi-hacking/blob/master/_notebooks/2021-06-21-Getting-Data-In-Kaggle.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/reddi-hacking/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#Introduction">Introduction </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Using-the-Kaggle-API">Using the Kaggle API </a></li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-06-21-Getting-Data-In-Kaggle.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Introduction">
+<a class="anchor" href="#Introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction<a class="anchor-link" href="#Introduction"> </a>
+</h1>
+<p>Here I will play around with the Kaggle CLI to find an interesting competition, and load the data from it</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is a riff off my learning <a href="https://redditech.github.io/team-fast-tabulous/jupyter/2021/06/19/test-Get-Kaggle-Data.html">team blog post</a> about getting specific data from Kaggle. You should reference it to understand the setups bit below for the why behind the instructions for setting up Kaggle-CLI and Fastai. 
+Good links to reference:</p>
+<ul>
+<li><a href="https://www.kaggle.com/docs/api">Kaggle API documentation</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install kaggle
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Requirement already satisfied: kaggle in /usr/local/anaconda3/envs/fastai/lib/python3.8/site-packages (1.5.12)
+Requirement already satisfied: python-dateutil in /usr/local/anaconda3/envs/fastai/lib/python3.8/site-packages (from kaggle) (2.8.1)
+Requirement already satisfied: six&gt;=1.10 in /usr/local/anaconda3/envs/fastai/lib/python3.8/site-packages (from kaggle) (1.16.0)
+Requirement already satisfied: python-slugify in /usr/local/anaconda3/envs/fastai/lib/python3.8/site-packages (from kaggle) (5.0.2)
+Requirement already satisfied: requests in /usr/local/anaconda3/envs/fastai/lib/python3.8/site-packages (from kaggle) (2.25.1)
+Requirement already satisfied: urllib3 in /usr/local/anaconda3/envs/fastai/lib/python3.8/site-packages (from kaggle) (1.26.4)
+Requirement already satisfied: tqdm in /usr/local/anaconda3/envs/fastai/lib/python3.8/site-packages (from kaggle) (4.59.0)
+Requirement already satisfied: certifi in /usr/local/anaconda3/envs/fastai/lib/python3.8/site-packages (from kaggle) (2021.5.30)
+Requirement already satisfied: text-unidecode&gt;=1.3 in /usr/local/anaconda3/envs/fastai/lib/python3.8/site-packages (from python-slugify-&gt;kaggle) (1.3)
+Requirement already satisfied: chardet&lt;5,&gt;=3.0.2 in /usr/local/anaconda3/envs/fastai/lib/python3.8/site-packages (from requests-&gt;kaggle) (4.0.0)
+Requirement already satisfied: idna&lt;3,&gt;=2.5 in /usr/local/anaconda3/envs/fastai/lib/python3.8/site-packages (from requests-&gt;kaggle) (2.10)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>mamba install -c fastchan fastai -y
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+                  __    __    __    __
+                 /  \  /  \  /  \  /  \
+                /    \/    \/    \/    \
+███████████████/  /██/  /██/  /██/  /████████████████████████
+              /  / \   / \   / \   / \  \____
+             /  /   \_/   \_/   \_/   \    o \__,
+            / _/                       \_____/  `
+            |/
+        ███╗   ███╗ █████╗ ███╗   ███╗██████╗  █████╗
+        ████╗ ████║██╔══██╗████╗ ████║██╔══██╗██╔══██╗
+        ██╔████╔██║███████║██╔████╔██║██████╔╝███████║
+        ██║╚██╔╝██║██╔══██║██║╚██╔╝██║██╔══██╗██╔══██║
+        ██║ ╚═╝ ██║██║  ██║██║ ╚═╝ ██║██████╔╝██║  ██║
+        ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚═════╝ ╚═╝  ╚═╝
+
+        mamba (0.13.0) supported by @QuantStack
+
+        GitHub:  https://github.com/mamba-org/mamba
+        Twitter: https://twitter.com/QuantStack
+
+█████████████████████████████████████████████████████████████
+
+
+Looking for: ['fastai']
+
+pkgs/r/osx-64            [&gt;                   ] (--:--) No change
+pkgs/r/osx-64            [====================] (00m:00s) No change
+pkgs/main/osx-64         [=&gt;                  ] (--:--) No change
+pkgs/main/osx-64         [====================] (00m:00s) No change
+pkgs/main/noarch         [=&gt;                  ] (--:--) No change
+pkgs/main/noarch         [====================] (00m:00s) No change
+pkgs/r/noarch            [&gt;                   ] (--:--) No change
+pkgs/r/noarch            [====================] (00m:00s) No change
+fastchan/osx-64          [=&gt;                  ] (--:--) No change
+fastchan/osx-64          [====================] (00m:00s) No change
+fastchan/noarch          [=&gt;                  ] (--:--) No change
+fastchan/noarch          [====================] (00m:00s) No change
+Transaction
+
+  Prefix: /usr/local/anaconda3/envs/fastai
+
+  All requested packages already installed
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's say I want to find some getting started competitions, Kaggle CLI let's you do keyword searches</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>kaggle competitions list -s <span class="s2">"Getting Started"</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>ref                                     deadline             category            reward  teamCount  userHasEntered  
+--------------------------------------  -------------------  ---------------  ---------  ---------  --------------  
+tpu-getting-started                     2030-06-03 23:59:00  Getting Started  Knowledge        936           False  
+nlp-getting-started                     2030-01-01 00:00:00  Getting Started  Knowledge       3171           False  
+gan-getting-started                     2030-07-01 23:59:00  Getting Started     Prizes        321           False  
+acm-sf-chapter-hackathon-small          2012-09-30 01:00:00  Research              $600         96           False  
+getting-started                         2012-02-26 00:00:00  Featured           $10,000          0           False  
+street-view-getting-started-with-julia  2017-01-07 00:00:00  Getting Started  Knowledge         56           False  
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I know there's a Titanic dataset, but it isn't found with keyword searching, so let's try the category</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>kaggle competitions list --category <span class="s2">"Getting Started"</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Invalid category specified. Valid options are ['all', 'featured', 'research', 'recruitment', 'gettingStarted', 'masters', 'playground']
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>kaggle competitions list --category gettingStarted
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>ref                                          deadline             category            reward  teamCount  userHasEntered  
+-------------------------------------------  -------------------  ---------------  ---------  ---------  --------------  
+contradictory-my-dear-watson                 2030-07-01 23:59:00  Getting Started     Prizes        188           False  
+gan-getting-started                          2030-07-01 23:59:00  Getting Started     Prizes        321           False  
+tpu-getting-started                          2030-06-03 23:59:00  Getting Started  Knowledge        936           False  
+digit-recognizer                             2030-01-01 00:00:00  Getting Started  Knowledge       5879            True  
+titanic                                      2030-01-01 00:00:00  Getting Started  Knowledge      48369           False  
+house-prices-advanced-regression-techniques  2030-01-01 00:00:00  Getting Started  Knowledge      12623            True  
+connectx                                     2030-01-01 00:00:00  Getting Started  Knowledge        951           False  
+nlp-getting-started                          2030-01-01 00:00:00  Getting Started  Knowledge       3171           False  
+facial-keypoints-detection                   2017-01-07 00:00:00  Getting Started  Knowledge        175           False  
+street-view-getting-started-with-julia       2017-01-07 00:00:00  Getting Started  Knowledge         56           False  
+word2vec-nlp-tutorial                        2015-06-30 23:59:00  Getting Started  Knowledge        577           False  
+data-science-london-scikit-learn             2014-12-31 23:59:00  Getting Started  Knowledge        190           False  
+just-the-basics-the-after-party              2013-03-01 01:00:00  Getting Started  Knowledge         48           False  
+just-the-basics-strata-2013                  2013-02-26 20:30:00  Getting Started  Knowledge         49           False  
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There it is! This is where those fastai helper functions come in handy. I'm going to work with tabular data, so I'll get this from the tabular library</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">fastai.tabular.all</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Path('/Users/nissan/code/reddi-hacking/_notebooks')</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now I need to make sure I put this data in the correct place so it doesn't get checked in when I commit my changes in Github. I want to create a folder <code>_data</code> and have add an entry to my <code>.gitignore</code> to avoid the dataset I download into it from being checked in</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>touch .gitignore
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span><span class="nb">echo</span> <span class="s2">"_data"</span> &gt; .gitignore
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>head .gitignore
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>_data
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>mkdir _data
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">'_data'</span><span class="p">)</span>
+<span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Path('/Users/nissan/code/reddi-hacking/_notebooks/_data')</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ok, looks like I'm ready to download that Titanic dataset</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>kaggle competitions download -c titanic
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>403 - Forbidden
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ok, this was a head scratcher, but it looks like before I can download any dataset, I need to go to the competition page and join the competition and accept the rules. I should have <a href="https://github.com/Kaggle/kaggle-api#competitions">read the documentation</a> that said this. Usual format for competition URLs is <code>https://www.kaggle.com/c/&lt;competition-name&gt;/rules</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>kaggle competitions download -c titanic
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Downloading titanic.zip to /Users/nissan/code/reddi-hacking/_notebooks/_data
+  0%|                                               | 0.00/34.1k [00:00&lt;?, ?B/s]
+100%|██████████████████████████████████████| 34.1k/34.1k [00:00&lt;00:00, 1.41MB/s]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now let's verify the file is there, and extract the data</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+<span class="n">path</span><span class="o">.</span><span class="n">ls</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(#1) [Path('/Users/nissan/code/reddi-hacking/_notebooks/_data/titanic.zip')]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">file_extract</span><span class="p">(</span><span class="s1">'titanic.zip'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">path</span><span class="o">.</span><span class="n">ls</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(#4) [Path('/Users/nissan/code/reddi-hacking/_notebooks/_data/test.csv'),Path('/Users/nissan/code/reddi-hacking/_notebooks/_data/titanic.zip'),Path('/Users/nissan/code/reddi-hacking/_notebooks/_data/train.csv'),Path('/Users/nissan/code/reddi-hacking/_notebooks/_data/gender_submission.csv')]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Using-the-Kaggle-API">
+<a class="anchor" href="#Using-the-Kaggle-API" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using the Kaggle API<a class="anchor-link" href="#Using-the-Kaggle-API"> </a>
+</h2>
+<p>After I wrote above, I just read a chapter of the book that showed the Kaggle API is available programmatically, so I can use this instead of command line to load the data, and since I already have the tabular libraries loaded and load and take a first look at the top rows of the data</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">kaggle</span> <span class="kn">import</span> <span class="n">api</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">competitions_list</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="s1">'gettingStarted'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[contradictory-my-dear-watson,
+ gan-getting-started,
+ tpu-getting-started,
+ digit-recognizer,
+ titanic,
+ house-prices-advanced-regression-techniques,
+ connectx,
+ nlp-getting-started,
+ facial-keypoints-detection,
+ street-view-getting-started-with-julia,
+ word2vec-nlp-tutorial,
+ data-science-london-scikit-learn,
+ just-the-basics-the-after-party,
+ just-the-basics-strata-2013]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">competition_download_cli</span><span class="p">(</span><span class="s1">'titanic'</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+<span class="n">file_extract</span><span class="p">(</span><span class="s2">"titanic.zip"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>titanic.zip: Skipping, found more recently modified local copy (use --force to force download)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="o">/</span><span class="s1">'train.csv'</span><span class="p">,</span> <span class="n">skipinitialspace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Braund, Mr. Owen Harris</td>
+      <td>male</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>A/5 21171</td>
+      <td>7.2500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Cumings, Mrs. John Bradley (Florence Briggs Thayer)</td>
+      <td>female</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>PC 17599</td>
+      <td>71.2833</td>
+      <td>C85</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Heikkinen, Miss. Laina</td>
+      <td>female</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>STON/O2. 3101282</td>
+      <td>7.9250</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
+      <td>female</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>113803</td>
+      <td>53.1000</td>
+      <td>C123</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Allen, Mr. William Henry</td>
+      <td>male</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>373450</td>
+      <td>8.0500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="redditech/reddi-hacking"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/reddi-hacking/kaggle/2021/06/21/Getting-Data-In-Kaggle.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/reddi-hacking/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/reddi-hacking/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/reddi-hacking/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/reddi-hacking/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/reddi-hacking/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
